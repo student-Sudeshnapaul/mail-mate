@@ -37,7 +37,6 @@
     overflow-x: hidden;
   }
 
-  /* Ambient glow blobs drifting behind everything */
   body::before, body::after {
     content: '';
     position: fixed;
@@ -71,7 +70,6 @@
     body::before, body::after { animation: none; }
   }
 
-  /* --- Banner --- */
   .banner {
     width: 100%;
     height: 260px;
@@ -132,7 +130,7 @@
   }
 
   .banner::after {
-    /* fade hero into the void background so it has no hard edge */
+
     content: '';
     position: absolute;
     inset: 0;
@@ -182,7 +180,6 @@
     position: relative;
     overflow: hidden;
   }
-  /* Signature: transmitting sweep across the top edge while busy */
   .card::before {
     content: '';
     position: absolute;
@@ -288,7 +285,7 @@
 
   .btn-row { display: flex; gap: 10px; }
 
-  /* --- Mail preview: looks like an actual email, not raw HTML --- */
+
   .mail-preview {
     background: #f4f5f7;
     border-radius: 12px;
