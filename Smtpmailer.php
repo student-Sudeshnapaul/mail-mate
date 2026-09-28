@@ -1,13 +1,4 @@
 <?php
-/**
- * ============================================================
- *  SmtpMailer — minimal SMTP client, no external libraries
- * ============================================================
- * Speaks raw SMTP over a socket, upgrades to TLS via STARTTLS,
- * authenticates with AUTH LOGIN, and sends a message.
- * Written for Gmail SMTP (smtp.gmail.com:587) but works with
- * any standard SMTP+STARTTLS server.
- */
 
 class SmtpMailer
 {
