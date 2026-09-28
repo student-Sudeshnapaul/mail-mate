@@ -1,11 +1,4 @@
 <?php
-/**
- * ============================================================
- *  generate.php — builds a prompt from form fields, calls
- *  Gemini, and returns { subject, body } as JSON.
- * ============================================================
- */
-
 header('Content-Type: application/json');
 require_once 'config.php';
 
@@ -17,7 +10,7 @@ if (!$input) {
     exit;
 }
 
-// --- Collect + sanitize inputs ---
+
 $receiverName = trim($input['receiverName'] ?? '');
 $receiverEmail = trim($input['receiverEmail'] ?? '');
 $content = trim($input['content'] ?? '');
@@ -39,15 +32,13 @@ if (!$content) {
     exit;
 }
 
-// --- Build the prompt for Gemini ---
-// Line 1: "Dear Sir," / "Respected Ma'am, Sudeshna,"
+
 $line1 = trim("$greetingWord $honorific" . ($receiverName ? ", $receiverName" : "")) . ",";
-// Line 2: "Good morning," (omitted entirely if no time of day chosen)
 $line2 = $timeOfDay ? "Good {$timeOfDay}," : "";
 
 $openingLines = $line2 ? "{$line1}\n{$line2}" : $line1;
 
-// Closing: always "Yours sincerely," followed by the sender's full name, each its own line
+
 $closingLines = "Yours sincerely,\n{$senderName}";
 
 $prompt = <<<PROMPT
@@ -73,7 +64,7 @@ Return ONLY a raw JSON object, no markdown fences, no commentary, in exactly thi
 {"subject": "...", "body": "..."}
 PROMPT;
 
-// --- Call Gemini API ---
+
 $url = "https://generativelanguage.googleapis.com/v1beta/models/" . GEMINI_MODEL . ":generateContent?key=" . GEMINI_API_KEY;
 
 $payload = [
@@ -135,8 +126,7 @@ if (!$parsed || !isset($parsed['subject'], $parsed['body'])) {
 
 $body = $parsed['body'];
 
-// Safety net: if the model dropped the sign-off, append it ourselves
-// rather than trusting the prompt alone.
+
 if ($senderName && stripos($body, $senderName) === false) {
     $body = rtrim($body) . "<p>Yours sincerely,</p><p>" . htmlspecialchars($senderName, ENT_QUOTES, 'UTF-8') . "</p>";
 }
