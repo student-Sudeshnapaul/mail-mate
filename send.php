@@ -1,10 +1,4 @@
 <?php
-/**
- * ============================================================
- *  send.php — sends the final subject/body (after user
- *  preview/edit) via Gmail SMTP using SmtpMailer.
- * ============================================================
- */
 
 header('Content-Type: application/json');
 require_once 'config.php';
